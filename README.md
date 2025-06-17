@@ -29,33 +29,35 @@
         make
         ```
     *   **Using g++ (Manual Compilation):**
-        Navigate to the project directory in your terminal and compile the source files. For example, if your main source file is `kbc.cpp` and you have other files like `admin.cpp` and `question.cpp`, you might use:
+        Navigate to the project directory in your terminal and compile the main source file. For example, if your main source file is `kbcv3.cpp`, you would use:
         ```bash
-        g++ kbc.cpp admin.cpp question.cpp -o kbc_game
+        g++ kbcv3.cpp -o kbcv3_game
         ```
-        (Adjust the command based on your actual source file names.)
+        (Adjust the command based on your actual source file name. On Windows, the output file might be named `kbcv3_game.exe`.)
 
 3.  **Running the Game:**
-    After successful compilation, an executable file (e.g., `kbc_game` or `kbc.exe`) will be created. Run it from the terminal:
+    After successful compilation, an executable file will be created (e.g., `kbcv3_game` on Linux/macOS or `kbcv3_game.exe` on Windows). Run it from your terminal:
     ```bash
-    ./kbc_game
+    ./kbcv3_game       # On Linux/macOS
+    .\kbcv3_game.exe # On Windows
     ```
 
 ## Admin Console
 The admin console is used to add new questions to the game's question bank.
 
-*   **Accessing the Console:** When you start the game, you might be prompted to enter a password to access the admin console.
-*   **Adding Questions:** Once in the console, you will be guided to input the question, four multiple-choice options, and the correct answer.
-
-*(Further details about the exact admin console commands and password should be added here if available in the source code or other documentation.)*
+*   **Accessing the Console:** To access the admin console, select the 'Administrator menu' option from the main menu. You will be prompted for a password. The default password is `kbc?`.
+*   **Admin Features:** Once in the console, you can perform the following actions:
+    *   Add new questions to the question bank (you will be guided to input the question, four multiple-choice options, and the correct answer).
+    *   Display all questions currently in the bank.
+    *   View the total number of questions in the bank.
 
 ## Lifelines
 
-The game includes the following lifelines to assist players:
+The game includes the following three lifelines to assist players. Each lifeline can be used once per game:
 
-*   **50-50:** This lifeline eliminates two incorrect options, leaving the player with one correct and one incorrect option.
-*   **Double Dip (also referred to as Second Chance):** This lifeline allows the player to make two guesses for a question. If the first guess is incorrect, they get an immediate second attempt at the same question with the remaining options.
-*   **Note:** The availability of other lifelines like "Flip the Question", "Audience Poll", or "Phone-a-Friend" would depend on the specific version/implementation of the game. The initially confirmed lifelines are 50-50 and Double Dip/Second Chance.
+*   **50-50:** Eliminates two incorrect options, leaving the player with one correct and one incorrect option.
+*   **Drop the Question:** Allows the player to skip the current question and move to the next one without any penalty. The skipped question is not answered and does not count towards winnings.
+*   **Double Dip:** Allows the player to make two guesses for a single question. If the first guess is incorrect, they get an immediate second attempt at the same question with the remaining options.
 
 ## Question Bank (`q.bin`)
 
@@ -94,7 +96,7 @@ This project is licensed under the **MIT License**.
 ```
 MIT License
 
-Copyright (c) [Year] [Your Name/Organization]
+Copyright (c) 2024 Shubham INC
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -114,5 +116,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-
-*(Remember to replace `[Year]` and `[Your Name/Organization]` in the license text with the appropriate information.)*
