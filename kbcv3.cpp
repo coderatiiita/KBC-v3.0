@@ -1,10 +1,37 @@
-#include<fstream.h>
-#include<stdlib.h>
-#include<ctype.h>
-#include<stdio.h>
-#include<conio.h>
-#include<string.h>
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <cctype>
+#include <cstdio>
+#include <cstring>
+#include <limits>
+#include <ctime>
 #define max_q 10
+
+using namespace std;
+
+void clrscr() {
+#ifdef _WIN32
+    system("cls");
+#else
+    cout << "\033[2J\033[1;1H";
+#endif
+}
+
+void getch() {
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
+}
+
+int strcmpi(const char* a, const char* b) {
+    while (*a && *b) {
+        char ca = tolower(static_cast<unsigned char>(*a));
+        char cb = tolower(static_cast<unsigned char>(*b));
+        if (ca != cb) return ca - cb;
+        ++a; ++b;
+    }
+    return tolower(static_cast<unsigned char>(*a)) - tolower(static_cast<unsigned char>(*b));
+}
 
 int q_ask;
 class player
@@ -40,12 +67,12 @@ void q_bank::input()
 	clrscr();
 	cout<<"Enter question number:"<<endl;
 	cin>>q_no;
-	cout<<"Enter question: ";
-	fflush(stdin);
-	gets(ques);
-	cout<<"\nEnter options:\n";
-	for(int j=0;j<4;j++)
-		gets(opt[j]);
+        cout<<"Enter question: ";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(ques, sizeof(ques));
+        cout<<"\nEnter options:\n";
+        for(int j=0;j<4;j++)
+                cin.getline(opt[j], sizeof(opt[j]));
 	cout<<"\nEnter correct option: \n";
 	cin>>c_opt;
 	status=1;
@@ -77,9 +104,9 @@ void adm_menu()
 	int opt=0,i=0;
 	q_bank q[max_q];
 	char paswrd[20]="kbc?",ent[20],ch='y';
-	cout<<"\n\n Enter password: ";
-	fflush(stdin);
-	gets(ent);
+        cout<<"\n\n Enter password: ";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(ent, sizeof(ent));
 	ofstream o("q.bin",ios::binary|ios::app);
 	ifstream io("q.bin",ios::binary);
 	ifstream tot_q("q.bin",ios::binary);
@@ -170,7 +197,7 @@ void q_bank::disp_admin()
 	cout<<c_opt;
 }
 
-void main()
+int main()
 {
 	void play();
 	int opt;
@@ -215,14 +242,16 @@ void main()
 
 			default: cout<<"Wrong option.";
 		}
-	}while(opt!=4);
+        }while(opt!=4);
+        return 0;
 }
 
 void player::input()
 {
 	cout<<"###############################################################################";
 	cout<<"\n\nEnter your name: ";
-	gets(name);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.getline(name, sizeof(name));
 	win_amt=0;
 	life50=1;
 	lifedd=1;
@@ -263,15 +292,15 @@ void play()
 	{
 		for(int i=0;i<max_q;i++)
 			ply.read((char*)&q[i],sizeof(q[i]));
-		int q_no=1;
+                srand(static_cast<unsigned>(time(nullptr)));
+                int q_no=1;
 		char u;
 		do
 		{
 			clrscr();
 
 wer:
-			randomize();
-			t=random(max_q);
+                        t=rand()%max_q;
 			if(q[t].status==0)
 				goto wer;
 			cout<<"Your question is: \n\n";
